@@ -15,8 +15,8 @@ describe('Creating items', function(next) {
 
   it ('has a form to put information about items', function(next) {
     browser.visit(url, function(err) {
-      expect(browser.query('input[id="itemName"]')).not.toBeNull();
-      expect(browser.query('input[id="itemPrice"]')).not.toBeNull();
+      expect(browser.query('input[id="property"]')).not.toBeNull();
+      expect(browser.query('input[id="value"]')).not.toBeNull();
       expect(browser.query('input[type="submit"]')).not.toBeNull();
       next();
     });
@@ -24,8 +24,8 @@ describe('Creating items', function(next) {
 
   it ('stores information about items', function(next) {
     browser.visit(url, function(err) {
-      browser.fill('input[name="itemName"]', 'Macbook Air')
-      .fill('input[name="itemPrice"]', '1000')
+      browser.fill('input[name="property"]', 'Macbook Air')
+      .fill('input[name="value"]', '1000')
       .pressButton('#button', function() {
         expect(browser.success).toBe(true);
         expect(browser.location.toString()).toBe(url);

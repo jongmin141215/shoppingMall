@@ -24,10 +24,11 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  var name = req.body.name
-  var price = req.body.price;
-  items.insert({name: name,
-                price: price})
+  var item = {};
+  var proprty = req.body.name
+  var value = req.body.price;
+  item[property] = value;
+  items.insert(item);
 });
 
 app.get('/users/new', function(req, res) {
