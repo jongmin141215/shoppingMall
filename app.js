@@ -1,27 +1,44 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var fs = require('fs');
 // var routes = require('./routes');
+var mongo = require('mongodb');
 var http = require('http');
 var path = require('path');
+var monk = require('monk');
 var app = express();
+var bodyParser = require('body-parser');
 var root = __dirname
+var property, propertyValue;
 
-// app.set('port', process.env.PORT || 3000);
+app.use(bodyParser());
+var db = monk('localhost:27017/shoppingMall');
+var items = db.get('items');
+var users = db.get('users');
 
 fs.readdirSync(__dirname + '/models').forEach(function(filename) {
   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
-})
+});
 
 app.get('/', function(req, res) {
   res.sendFile(root + '/views/index.html');
+});
+
+app.post('/', function(req, res) {
+  var name = req.body.name
+  var price = req.body.price;
+  items.insert({name: name,
+                price: price})
+});
+
+app.get('/users/new', function(req, res) {
+  res.sendFile(root + '/views/users/new.html');
+});
+
+app.post('/users', function(req, res) {
+  res.redirect('/');
 })
 
-app.get('/items', function(req, res) {
-  mongoose.model('Item').find(function(err, item) {
-    res.send(item);
-  })
-})
+
 
 
 

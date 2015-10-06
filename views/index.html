@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <!-- <script src="/application.js"></script> -->
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
   </head>
   <body>
-    Create your own shopping mall
-    <input class="property">
-    <input type="submit" value="save">
+    <!-- <form action='/' method='post'> -->
+      Create a new item
+      Name: <input id="itemName" name="itemName">
+      Price: <input id="itemPrice" name="itemPrice">
+      <input id="button" type="submit" value="save">
+    <!-- </form> -->
+    <table id="items">
+    </table>
+    <script>
+      $(function() {
+        $('#button').on('click', function() {
+          $.post('/', {name: $('#itemName').val(), price: $('#itemPrice').val()})
+          $('#items').append('<tr><td>' + $('#itemName').val() + '</td><td>' + $('#itemPrice').val() + '</td></tr>');
+        });
+      });
+    </script>
   </body>
 </html>
