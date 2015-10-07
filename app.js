@@ -11,6 +11,7 @@ var root = __dirname
 var property, propertyValue;
 
 app.use(bodyParser());
+app.engine('jade', require('jade').__express);
 var db = monk('localhost:27017/shoppingMall');
 var items = db.get('items');
 var users = db.get('users');
@@ -24,10 +25,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  var item = {};
-  var proprty = req.body.name
-  var value = req.body.price;
-  item[property] = value;
+  var item = req.body
   items.insert(item);
 });
 
@@ -38,6 +36,14 @@ app.get('/users/new', function(req, res) {
 app.post('/users', function(req, res) {
   res.redirect('/');
 })
+
+app.get('/items', function(req, res) {
+  items.find({}, {}, function(err, docs) {
+    res.render('items/index.jade', {items: docs});
+  })
+  // res.sendFile(root + '/views/items/index.html')
+})
+
 
 
 

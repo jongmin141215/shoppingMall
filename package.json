@@ -6,9 +6,9 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "jade": "^1.11.0",
     "method-override": "^2.3.5",
     "mongodb": "^2.0.45",
-    "mongoose": "^4.1.9",
     "monk": "^1.0.1"
   },
   "devDependencies": {

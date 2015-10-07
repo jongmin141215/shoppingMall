@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    script(src='http://code.jquery.com/jquery-1.11.3.min.js')
+  body
+    navbar#navbar
+      a(href="")
+        p Create
+      a(href="/items")
+        p Search
+    h1 Items
+
+    - for item in items
+      br
+      - for val, key in item
+        p #{key}: #{val}
