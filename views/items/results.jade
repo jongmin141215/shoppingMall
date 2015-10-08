@@ -6,12 +6,14 @@ html
     navbar#navbar
       #[a(href="/") Create]
       #[a(href="/items") Search]
-    h1 Items
-    p Find items
+    h1 Search results
+    p Find other items
     form(action="/items", method="post")
       input(type='text', id='searchBox' name="keyword")
       input(type='submit', id='searchButton', value='Search')
-    - for item in items
+    - if (result.length < 1)
+      p No results found
+    - for r in result
       br
-      - for val, key in item
+      - for val, key in r
         p #{key}: #{val}
