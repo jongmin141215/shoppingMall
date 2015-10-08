@@ -4,8 +4,8 @@ html
     script(src='http://code.jquery.com/jquery-1.11.3.min.js')
   body
     navbar#navbar
-      #[a(href="/") Create]
-      #[a(href="/items") Search]
+      #[a(href="/") Create ]
+      #[a(href="/items") Search ]
     h1 Items
     p Find items
     form(action="/items", method="post")
@@ -13,5 +13,10 @@ html
       input(type='submit', id='searchButton', value='Search')
     - for item in items
       br
-      - for val, key in item
-        p #{key}: #{val}
+      table(class="table" style="border: 1px solid black")
+        - for val, key in item
+          tr
+            td(style="border: 1px solid black") #{key}
+            td(style="border: 1px solid black") #{val}
+        tr
+          td #[a(href="/update/#{item._id}") Update ]

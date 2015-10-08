@@ -17,7 +17,7 @@ app.engine('jade', require('jade').__express);
 var db = monk('localhost:27017/shoppingMall');
 var items = db.get('items');
 var users = db.get('users');
-
+var sess;
 fs.readdirSync(__dirname + '/models').forEach(function(filename) {
   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
 });
@@ -49,7 +49,7 @@ app.get('/items', function(req, res) {
     res.render('items/index.jade', {items: docs});
   });
 });
-var sess;
+
 app.post('/items', function(req, res) {
   sess = req.session;
   sess.keyword = req.body.keyword;
@@ -57,13 +57,22 @@ app.post('/items', function(req, res) {
 });
 
 app.get('/result', function(req, res) {
-  console.log(sess.keyword);
   items.find({$text: {$search: sess.keyword}}, function(err, docs) {
-    console.log(docs);
     res.render('items/results.jade', {result: docs})
-
   })
 });
+
+app.get('/update/:id', function(req, res) {
+  var itemId = req.params.id;
+  items.find({_id: itemId}, function(err, docs) {
+    res.render('items/update.jade', {updatedItem: docs[0]});
+  })
+})
+
+app.post('/update/:id', function(req, res) {
+
+  res.send(req.body);
+})
 
 
 var server = app.listen(3000, function() {

@@ -1,0 +1,35 @@
+include update.html
+h1 Update your item
+p #{updatedItem.property1}
+| Category :
+input(id="category" name="category" value="#{updatedItem.category}")
+br
+| Name/Title :
+input(id="itemName" name="itemName" value="#{updatedItem.itemName}")
+br
+| Description :
+input(id="description" name="description" value="#{updatedItem.description}")
+br
+| Price :
+input(id="price" name="price" value="#{updatedItem.price}")
+br
+input(id="updateButton" type="submit" value="update")
+table(id="updatedItems")
+
+script.
+  $(function() {
+    $('#updateButton').on('click', function() {
+
+      var updatedItem = {}
+      updatedItem['category'] = $('#category').val();
+      updatedItem['itemName'] = $('#itemName').val();
+      updatedItem['description'] = $('#description').val();
+      updatedItem['price'] = $('#price').val();
+
+      $.post(window.location.pathname, updatedItem);
+
+      for (var key in updatedItem) {
+        $('#updatedItems').append('<tr><td>' + key + '</td><td>' + updatedItem[key] + '</td></tr>');
+      }
+    })
+  });

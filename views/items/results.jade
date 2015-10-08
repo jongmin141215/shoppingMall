@@ -4,8 +4,9 @@ html
     script(src='http://code.jquery.com/jquery-1.11.3.min.js')
   body
     navbar#navbar
-      #[a(href="/") Create]
-      #[a(href="/items") Search]
+      #[a(href="/") Create ]
+      #[a(href="/items") Search ]
+      #[a(href="/update") Update ]
     h1 Search results
     p Find other items
     form(action="/items", method="post")
@@ -15,5 +16,8 @@ html
       p No results found
     - for r in result
       br
-      - for val, key in r
-        p #{key}: #{val}
+      table(style="border: 1px solid black")
+        - for val, key in r
+          tr
+            td(style="border: 1px solid black") #{key}: #{val}
+        td #[a(href="/update/#{r._id]}") Update ]
