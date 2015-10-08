@@ -70,9 +70,11 @@ app.get('/update/:id', function(req, res) {
 })
 
 app.post('/update/:id', function(req, res) {
-
-  res.send(req.body);
-})
+  var updatedItem = req.body;
+  items.update({_id: req.params.id}, updatedItem, function(err) {
+    res.send('There was a problem updating your item. Please try again.')
+  });
+});
 
 
 var server = app.listen(3000, function() {
