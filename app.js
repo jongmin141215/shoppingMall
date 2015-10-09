@@ -71,8 +71,14 @@ app.get('/update/:id', function(req, res) {
 
 app.post('/update/:id', function(req, res) {
   var updatedItem = req.body;
-  items.update({_id: req.params.id}, updatedItem, function(err) {
-    res.send('There was a problem updating your item. Please try again.')
+  items.update({_id: req.params.id}, updatedItem, function(err) {});
+});
+
+app.get('/delete/:id', function(req, res) {
+  items.remove({_id: req.params.id}, function(err) {
+    items.find({}, function(err, docs) {
+      res.render('items/index.jade', {items: docs});
+    })
   });
 });
 

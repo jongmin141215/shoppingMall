@@ -19,5 +19,6 @@ html
       table(style="border: 1px solid black")
         - for val, key in r
           tr
-            td(style="border: 1px solid black") #{key}: #{val}
-        td #[a(href="/update/#{r._id]}") Update ]
+            td(style="border: 1px solid black") #{key}
+            td(style="border: 1px solid black") #{val}
+        td #[a(href="/update/#{r._id}") Update ] | #[a(href="/delete/#{r._id}") Delete]

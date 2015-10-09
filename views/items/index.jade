@@ -19,4 +19,10 @@ html
             td(style="border: 1px solid black") #{key}
             td(style="border: 1px solid black") #{val}
         tr
-          td #[a(href="/update/#{item._id}") Update ]
+          td #[a(href="/update/#{item._id}") Update ] | #[a(class="deleteButton" href="/delete/#{item._id}") Delete]
+
+  script.
+    $('.deleteButton').on('click', function() {
+      $.ajax({url: window.location.pathname,
+              type: 'DELETE'})
+    })
