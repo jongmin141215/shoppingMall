@@ -1,3 +1,4 @@
+var cool = require('cool-ascii-faces');
 var express = require('express');
 var fs = require('fs');
 // var routes = require('./routes');
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.engine('jade', require('jade').__express);
 var port = process.env.PORT || 8080;
-var db = monk('localhost:27017/shoppingMall');
+var db = monk(process.env.MONGOLAB_URI || 'localhost:27017/shoppingMall');
 var items = db.get('items');
 var users = db.get('users');
 var sess;
@@ -34,6 +35,10 @@ app.post('/', function(req, res) {
       res.send('There was a problem saving the information. Please try again.')
     }
   });
+});
+
+app.get('/cool', function(req, res) {
+  res.send(cool());
 });
 
 app.get('/users/new', function(req, res) {
