@@ -14,6 +14,7 @@ app.use(session({secret: 'ssshhhhh'}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.engine('jade', require('jade').__express);
+var port = process.env.PORT || 8080;
 var db = monk('localhost:27017/shoppingMall');
 var items = db.get('items');
 var users = db.get('users');
@@ -83,7 +84,7 @@ app.get('/delete/:id', function(req, res) {
 });
 
 
-var server = app.listen(3000, function() {
+var server = app.listen(port, function() {
   var host = server.address().address;
   var port = server.address().port;
   console.log('Example app listening at http://%s"%s', host, port);
